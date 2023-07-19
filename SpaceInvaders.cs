@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using spaceinvaders01.Helpers;
 
 namespace spaceinvaders01
 {
@@ -13,12 +14,18 @@ namespace spaceinvaders01
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Original Space Invaders resolution. Allegedly. 
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 896;
+            _graphics.ApplyChanges();
+
+            GraphicsHelper.Init(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+
 
             base.Initialize();
         }
@@ -27,7 +34,6 @@ namespace spaceinvaders01
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,9 +48,7 @@ namespace spaceinvaders01
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
         }
