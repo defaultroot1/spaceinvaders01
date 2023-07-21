@@ -7,7 +7,7 @@ namespace spaceinvaders01
     internal class GameObject
     {
         protected Texture2D _texture;
-        public Vector2 Position { get; protected set; }
+        public Vector2 Position { get; set; }
 
 
         public GameObject(string spritePath, Vector2 position)
@@ -26,7 +26,7 @@ namespace spaceinvaders01
             // Update logic
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw()
         {
             // Draw object
         }

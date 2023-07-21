@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using spaceinvaders01.Helpers;
+using System.Collections.Generic;
 
 namespace spaceinvaders01
 {
@@ -9,12 +10,13 @@ namespace spaceinvaders01
     {
         private static GameManager instance;
         private PlayerShip _playerShip;
-        private PlayerLaser _playerLaser;
+        private ProjectileManager _projectileManager;
 
         private GameManager()
         {
-            _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f));
-            _playerLaser = new PlayerLaser("Sprites/laser", new Vector2(100,100));
+            _projectileManager = new ProjectileManager();
+            _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
+            
             
         }
 
@@ -33,13 +35,14 @@ namespace spaceinvaders01
         public void Update(GameTime gameTime)
         {
             _playerShip.Update(gameTime);
-            _playerLaser.Update(gameTime);
+            _projectileManager.Update(gameTime);
         }
 
         public void Draw()
         {
-            _playerShip.Draw(SpaceInvaders.spriteBatch);
-            _playerLaser.Draw(SpaceInvaders.spriteBatch);
+            _projectileManager.Draw();
+            _playerShip.Draw();
+
         }
     }
 }

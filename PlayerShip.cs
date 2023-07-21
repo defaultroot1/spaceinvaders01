@@ -3,16 +3,19 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using spaceinvaders01.Helpers;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace spaceinvaders01
 {
     internal class PlayerShip : GameObject
     {
+        private ProjectileManager _projectileManager;
         private float _speed = 500;
-        public PlayerShip(string spritePath, Vector2 position):base(spritePath, position)
+
+        public PlayerShip(string spritePath, Vector2 position, ProjectileManager projectileManager) : base(spritePath, position)
         {
-            
+            _projectileManager = projectileManager;
         }
 
         public override void Update(GameTime gameTime)
@@ -20,9 +23,9 @@ namespace spaceinvaders01
             InputManager(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
-            spriteBatch.Draw(_texture, Position, Color.White);
+            SpaceInvaders.spriteBatch.Draw(_texture, Position, Color.White);
         }
 
         public void InputManager(GameTime gameTime)
@@ -39,6 +42,12 @@ namespace spaceinvaders01
             }
 
             Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - _texture.Width), Position.Y);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                _projectileManager.LaserList.Add(new PlayerLaser("Sprites/laser",
+                    new Vector2(Position.X + (_texture.Width / 2) - 1, Position.Y)));
+            }
         }
     }
 }
