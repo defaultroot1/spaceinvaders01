@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace spaceinvaders01
 {
@@ -24,6 +25,11 @@ namespace spaceinvaders01
 
                 laser.Position = new Vector2(laser.Position.X,
                     laser.Position.Y + laser.Velocity.Y * laser.Speed);
+
+                if (laser.Position.Y < 0)
+                {
+                    LaserList.Remove(laser);
+                }
             }
         }
 
@@ -33,6 +39,8 @@ namespace spaceinvaders01
             {
                 laser.Draw();
             }
+
+            Debug.WriteLine("LaserList count: " + LaserList.Count);
         }
 
 
