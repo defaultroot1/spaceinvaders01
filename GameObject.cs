@@ -10,13 +10,13 @@ namespace spaceinvaders01
     /// </summary>
     internal class GameObject
     {
-        protected Texture2D _texture;
+        public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
 
 
         public GameObject(string spritePath, Vector2 position)
         {
-            _texture = SpaceInvaders.contentManager.Load<Texture2D>(spritePath);
+            Texture = SpaceInvaders.contentManager.Load<Texture2D>(spritePath);
             Position = position;
         }
 
@@ -26,7 +26,7 @@ namespace spaceinvaders01
         /// <returns></returns>
         public Rectangle GetBounds()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+            return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
         }
 
         public virtual void Update(GameTime gameTime)

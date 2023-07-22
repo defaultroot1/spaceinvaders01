@@ -13,13 +13,14 @@ namespace spaceinvaders01
         private PlayerShip _playerShip;
         private ProjectileManager _projectileManager;
         private AlienManager _alienManager;
+        private CollisionManager _collisionManager;
 
         private GameManager()
         {
             _projectileManager = new ProjectileManager();
-            _alienManager = new AlienManager();
+            _alienManager = new AlienManager(_projectileManager);
             _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
-
+            _collisionManager = new CollisionManager();
         }
 
         // Method to instantiante a single instance of GameManager (singleton)
@@ -40,6 +41,9 @@ namespace spaceinvaders01
             _playerShip.Update(gameTime);
             _alienManager.Update(gameTime);
             _projectileManager.Update(gameTime);
+            _collisionManager.HandleLaserHitAlien(_projectileManager, _alienManager);
+            _collisionManager.HandleLaserHitPlayer(_projectileManager, _playerShip);
+            
         }
 
         public void Draw()

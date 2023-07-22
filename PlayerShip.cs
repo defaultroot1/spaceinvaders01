@@ -27,7 +27,7 @@ namespace spaceinvaders01
 
         public override void Draw()
         {
-            SpaceInvaders.spriteBatch.Draw(_texture, Position, Color.White);
+            SpaceInvaders.spriteBatch.Draw(Texture, Position, Color.White);
         }
 
         public void InputManager(GameTime gameTime)
@@ -45,13 +45,13 @@ namespace spaceinvaders01
                 Position = new Vector2(Position.X + _speed * delta, Position.Y);
             }
 
-            Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - _texture.Width), Position.Y);
+            Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - Texture.Width), Position.Y);
 
             // Fire laser. Checks if previous Update frame (_oldKeyboardState) had Space pressed to ensure only one laser per press
             if (keyboardState.IsKeyDown(Keys.Space) && !_oldKeyboardState.IsKeyDown(Keys.Space))
             {
-                _projectileManager.LaserList.Add(new PlayerLaser("Sprites/laser",
-                    new Vector2(Position.X + (_texture.Width / 2) - 1, Position.Y - _texture.Height / 2)));
+                _projectileManager.PlayerLaserList.Add(new PlayerLaser("Sprites/laser",
+                    new Vector2(Position.X + (Texture.Width / 2) - 1, Position.Y - Texture.Height / 2)));
             }
 
             _oldKeyboardState = keyboardState;
