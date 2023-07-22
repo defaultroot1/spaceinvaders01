@@ -12,10 +12,12 @@ namespace spaceinvaders01
         private static GameManager instance;
         private PlayerShip _playerShip;
         private ProjectileManager _projectileManager;
+        private AlienManager _alienManager;
 
         private GameManager()
         {
             _projectileManager = new ProjectileManager();
+            _alienManager = new AlienManager();
             _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
 
         }
@@ -36,12 +38,14 @@ namespace spaceinvaders01
         public void Update(GameTime gameTime)
         {
             _playerShip.Update(gameTime);
+            _alienManager.Update(gameTime);
             _projectileManager.Update(gameTime);
         }
 
         public void Draw()
         {
             _projectileManager.Draw();
+            _alienManager.Draw();
             _playerShip.Draw();
 
         }
