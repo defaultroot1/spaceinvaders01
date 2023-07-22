@@ -4,6 +4,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace spaceinvaders01
 {
+    /// <summary>
+    /// GameObject is the base class for most other objects in the game to inherit from, providing common 
+    /// functionality, such as assignment of texture and bounds for collision detection.
+    /// </summary>
     internal class GameObject
     {
         protected Texture2D _texture;
@@ -16,6 +20,10 @@ namespace spaceinvaders01
             Position = position;
         }
 
+        /// <summary>
+        /// Returns a Retangle of the object's bounds for collision detection.
+        /// </summary>
+        /// <returns></returns>
         public Rectangle GetBounds()
         {
             return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);

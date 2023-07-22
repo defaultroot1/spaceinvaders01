@@ -12,10 +12,12 @@ namespace spaceinvaders01
     {
         private ProjectileManager _projectileManager;
         private float _speed = 500;
+        private KeyboardState _oldKeyboardState;
 
         public PlayerShip(string spritePath, Vector2 position, ProjectileManager projectileManager) : base(spritePath, position)
         {
-            _projectileManager = projectileManager;
+            // Dependency injection to avoid passing projectileManager multiple times to make it availble in Update() for firing laser
+            _projectileManager = projectileManager; 
         }
 
         public override void Update(GameTime gameTime)
@@ -32,22 +34,27 @@ namespace spaceinvaders01
         {
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.A))
             {
                 Position = new Vector2(Position.X - _speed * delta, Position.Y);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(Keys.D))
             {
                 Position = new Vector2(Position.X + _speed * delta, Position.Y);
             }
 
             Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - _texture.Width), Position.Y);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            // Fire laser. Checks if previous Update frame (_oldKeyboardState) had Space pressed to ensure only one laser per press
+            if (keyboardState.IsKeyDown(Keys.Space) && !_oldKeyboardState.IsKeyDown(Keys.Space))
             {
                 _projectileManager.LaserList.Add(new PlayerLaser("Sprites/laser",
-                    new Vector2(Position.X + (_texture.Width / 2) - 1, Position.Y)));
+                    new Vector2(Position.X + (_texture.Width / 2) - 1, Position.Y - _texture.Height / 2)));
             }
+
+            _oldKeyboardState = keyboardState;
         }
     }
 }

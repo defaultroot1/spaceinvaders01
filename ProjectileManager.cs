@@ -24,6 +24,12 @@ namespace spaceinvaders01
 
                 laser.Position = new Vector2(laser.Position.X,
                     laser.Position.Y + laser.Velocity.Y * laser.Speed);
+
+                // Destroy object if it leaves the play area (top of screen in this case)
+                if (laser.Position.Y < 0)
+                {
+                    LaserList.Remove(laser);
+                }
             }
         }
 
@@ -33,6 +39,7 @@ namespace spaceinvaders01
             {
                 laser.Draw();
             }
+
         }
 
 

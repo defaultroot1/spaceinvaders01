@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using spaceinvaders01.Helpers;
+using System;
 using System.Collections.Generic;
 
 namespace spaceinvaders01
@@ -16,10 +17,10 @@ namespace spaceinvaders01
         {
             _projectileManager = new ProjectileManager();
             _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
-            
-            
+
         }
 
+        // Method to instantiante a single instance of GameManager (singleton)
         public static GameManager Instance
         {
             get
@@ -44,5 +45,6 @@ namespace spaceinvaders01
             _playerShip.Draw();
 
         }
+
     }
 }

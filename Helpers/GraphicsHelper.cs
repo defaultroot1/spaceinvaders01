@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace spaceinvaders01.Helpers
 {
+    /// <summary>
+    /// A helper class avabilable globally for easy access to screen width and height.
+    /// </summary>
     public static class GraphicsHelper
     {
         public static int ScreenWidth { get; private set; }

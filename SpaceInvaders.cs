@@ -9,9 +9,9 @@ namespace spaceinvaders01
     public class SpaceInvaders : Game
     {
         private GraphicsDeviceManager _graphics;
-        public static SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch; // Spritebatch made public static for easy access
         private GameManager _gameManager;
-        public static ContentManager contentManager;
+        public static ContentManager contentManager; // ContentManager made public static for easy access
 
         public SpaceInvaders()
         {
@@ -19,7 +19,7 @@ namespace spaceinvaders01
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
 
-            contentManager = Content;
+            contentManager = Content; // Initialise contentManager with Game.Content
 
         }
 
@@ -30,6 +30,7 @@ namespace spaceinvaders01
             _graphics.PreferredBackBufferHeight = 896;
             _graphics.ApplyChanges();
 
+            // Initialise the GraphicsHelper static class with screen width and height
             GraphicsHelper.Init(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
 
             base.Initialize();
@@ -38,6 +39,8 @@ namespace spaceinvaders01
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // Create singleton instance of GameManager
             _gameManager = GameManager.Instance;
 
         }
@@ -47,6 +50,7 @@ namespace spaceinvaders01
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            // GameManager takes care of Update() methods for various classes
             _gameManager.Update(gameTime);
 
             base.Update(gameTime);
@@ -58,6 +62,7 @@ namespace spaceinvaders01
 
             spriteBatch.Begin();
 
+            // GameManager takes care of Draw() methods for various classes
             _gameManager.Draw();
 
             spriteBatch.End();
