@@ -7,7 +7,7 @@ namespace spaceinvaders01
     internal class AlienLaser : GameObject
     {
         public Vector2 Velocity { get; set; } = new Vector2(0, 1);
-        public float Speed { get; set; } = 10;
+        public float Speed { get; set; } = 5;
         public AlienLaser(string spritePath, Vector2 position) : base(spritePath, position)
         {
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,17 @@ namespace spaceinvaders01
     internal class Alien : GameObject
     {
         private Vector2 _velocity;
-        private float _speed;
+        private float _speed = 1.0f;
+        private float _speedIncrase = 0.5f;
         private ProjectileManager _projectileManager;
-        public Alien(string spritePath, Vector2 position, ProjectileManager projectileManager) : base(spritePath, position) 
+        public bool ActiveShooter { get; set; } = false;
+        public int Points { get; set; }
+        public Alien(string spritePath, Vector2 position, ProjectileManager projectileManager, int points, bool activeShooter=false) : base(spritePath, position) 
         {
             _velocity = new Vector2(1, 0);
-            _speed = 1.0f;
             _projectileManager = projectileManager; 
+            ActiveShooter = activeShooter;
+            Points = points;
         }
 
         public  void UpdateMovementX(GameTime gameTime)
@@ -47,6 +52,16 @@ namespace spaceinvaders01
         {
             _projectileManager.AlienLaserList.Add(new AlienLaser("Sprites/laser2",
                 new Vector2(Position.X + Texture.Width / 2, Position.Y + Texture.Width / 2)));
+        }
+
+        public void MakeActiveShooter()
+        {
+            ActiveShooter = true;
+        }
+
+        public void IncreaseSpeed()
+        {
+            _speed += _speedIncrase;
         }
     }
 }

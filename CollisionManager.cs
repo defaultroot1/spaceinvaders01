@@ -9,7 +9,7 @@ namespace spaceinvaders01
 {
     internal class CollisionManager
     {
-        public void HandleLaserHitAlien(ProjectileManager projectileManager, AlienManager alienManager)
+        public void HandleLaserHitAlien(ProjectileManager projectileManager, AlienManager alienManager, GameManager gameManager)
         {
             for (int l = 0; l < projectileManager.PlayerLaserList.Count; l++)
             {
@@ -21,8 +21,18 @@ namespace spaceinvaders01
 
                     if (laserBounds.Intersects(alienBounds))
                     {
+                        gameManager.PlayerScore += alienManager.AlienList[a].Points;
+
+                        if (a != 0 && alienManager.AlienList[a].ActiveShooter)
+                        {
+                            alienManager.AlienList[a - 1].MakeActiveShooter();
+                        }
+                        
                         projectileManager.PlayerLaserList.Remove(projectileManager.PlayerLaserList[l]);
                         alienManager.AlienList.Remove(alienManager.AlienList[a]);
+
+                        
+
                     }
                 }
                 
@@ -31,7 +41,7 @@ namespace spaceinvaders01
             }
         }
 
-        public void HandleLaserHitPlayer(ProjectileManager projectileManager, PlayerShip playerShip)
+        public void HandleLaserHitPlayer(ProjectileManager projectileManager, PlayerShip playerShip, GameManager gameManager)
         {
             for (int l = 0; l < projectileManager.AlienLaserList.Count; l++)
             {
@@ -41,6 +51,7 @@ namespace spaceinvaders01
                 if (laserBounds.Intersects(playerShipBounds))
                 {
                     projectileManager.AlienLaserList.Remove(projectileManager.AlienLaserList[l]);
+                    gameManager.PlayerLives--;
                 }
 
 
@@ -48,5 +59,6 @@ namespace spaceinvaders01
 
             }
         }
+
     }
 }

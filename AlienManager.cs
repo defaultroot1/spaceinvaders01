@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using spaceinvaders01.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,13 @@ namespace spaceinvaders01
     {
         public List<Alien> AlienList { get; set; }
         private ProjectileManager _projectileManager;
+        private Random _random;
 
         public AlienManager(ProjectileManager projectileManager)
         {
             _projectileManager = projectileManager;
             AlienList = new List<Alien>();
             CreateSwarm();
-            
-
         }
 
         public void Update(GameTime gameTime)
@@ -33,12 +33,16 @@ namespace spaceinvaders01
                     alien.UpdateMovementX(gameTime);
 
                 }
+
+                RandomFireLaser();
+
+
             }
         }
 
         public void Draw()
         {
-            foreach (Alien alien in AlienList)
+            foreach(Alien alien in AlienList)
             {
                 alien.Draw();
             }
@@ -53,12 +57,13 @@ namespace spaceinvaders01
 
             for(int i = 0; i < 11; i++)
             {
-                AlienList.Add(new Alien("Sprites/alien8", new Vector2((i * 60) + 17, 160), _projectileManager));
-                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 220), _projectileManager));
-                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 280), _projectileManager));
-                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 340), _projectileManager));
-                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 400), _projectileManager));
+                AlienList.Add(new Alien("Sprites/alien8", new Vector2((i * 60) + 17, 100), _projectileManager, 30));
+                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 160), _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 220), _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 280), _projectileManager, 10));
+                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 340), _projectileManager, 10, true));
             }
+
         }
 
         public void HandleMovementAtBounds()
@@ -74,11 +79,25 @@ namespace spaceinvaders01
                     alien.ChangeVelocityX();
                     alien.AdvanceOneRow();
                 }
-
-                firstAlien.FireLaser();
             }
+        }
 
+        public void RandomFireLaser()
+        {
+            foreach(Alien alien in AlienList)
+            {
+                if(alien.ActiveShooter)
+                {
+                    _random = new Random();
+                    int randomNum = _random.Next(0, 10000);
 
+                    if (randomNum > 9980)
+                    {
+                        alien.FireLaser();
+                    }
+                }
+
+            }
         }
     }
 }
