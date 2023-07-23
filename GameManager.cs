@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using spaceinvaders01.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace spaceinvaders01
 {
@@ -88,6 +89,7 @@ namespace spaceinvaders01
 
             if (gameState == GameState.GameOver)
             {
+                Debug.WriteLine("Game over...");
                 CheckForNewHighScore();
                 CheckForRestart();
             }
@@ -148,8 +150,9 @@ namespace spaceinvaders01
 
         public void CheckForNewHighScore()
         {
-            if(PlayerScore > HighScore)
+            if(PlayerScore >= HighScore)
             {
+                Debug.WriteLine("Saving Highscore!!!");
                 HighScoreManager.SaveHighScore(PlayerScore);
             }
         }
