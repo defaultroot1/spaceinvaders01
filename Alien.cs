@@ -53,6 +53,7 @@ namespace spaceinvaders01
         {
             _projectileManager.AlienLaserList.Add(new AlienLaser("Sprites/laser2",
                 new Vector2(Position.X + Width / 2, Position.Y + Width / 2)));
+            AudioManager.playAlienLaserFX();
         }
 
         public void MakeActiveShooter()

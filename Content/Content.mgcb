@@ -13,6 +13,36 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/explosion1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/explosion1.mp3
+
+#begin Audio/explosion2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/explosion2.mp3
+
+#begin Audio/laser1.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/laser1.mp3
+
+#begin Audio/laser2.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/laser2.mp3
+
+#begin Audio/laser3.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/laser3.mp3
+
 #begin Fonts/debugFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

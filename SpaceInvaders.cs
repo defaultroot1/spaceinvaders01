@@ -32,6 +32,7 @@ namespace spaceinvaders01
 
             // Initialise the GraphicsHelper static class with screen width and height
             GraphicsHelper.Init(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            AudioManager.Init();
 
             base.Initialize();
         }

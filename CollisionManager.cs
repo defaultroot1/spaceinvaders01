@@ -45,6 +45,7 @@ namespace spaceinvaders01
                                 alien.IncreaseSpeed();
                             }
                         }
+                        AudioManager.playAlienHitFX();
                     }
                 }    
             }
@@ -62,6 +63,7 @@ namespace spaceinvaders01
                 {
                     explosionManager.explosionList.Add(new Explosion("Sprites/explosion", playerShip.Position));
                     projectileManager.AlienLaserList.Remove(projectileManager.AlienLaserList[l]);
+                    AudioManager.playPlayerHitFX();
                     gameManager.PlayerLives--;
                 }
             }

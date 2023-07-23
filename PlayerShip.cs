@@ -52,6 +52,7 @@ namespace spaceinvaders01
             {
                 _projectileManager.PlayerLaserList.Add(new PlayerLaser("Sprites/laser",
                     new Vector2(Position.X + (Width / 2) - 1, Position.Y - Height / 2)));
+                AudioManager.playPlayerLaserFX();
             }
 
             _oldKeyboardState = keyboardState;
