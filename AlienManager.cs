@@ -31,7 +31,6 @@ namespace spaceinvaders01
                 foreach (Alien alien in AlienList)
                 {
                     alien.UpdateMovementX(gameTime);
-
                 }
 
                 RandomFireLaser();
@@ -48,6 +47,9 @@ namespace spaceinvaders01
             }
         }
 
+        /// <summary>
+        /// Initial creation of the alien swarm layout. Front row is ActiveShooter so can fire
+        /// </summary>
         public void CreateSwarm()
         {
             if(AlienList.Count > 0)
@@ -66,6 +68,10 @@ namespace spaceinvaders01
 
         }
 
+        /// <summary>
+        /// If either the first (left most) or last (right most) alien touch the screen bounds, reverse X velocity
+        /// and move the swarm down a row
+        /// </summary>
         public void HandleMovementAtBounds()
         {
             Alien lastAlien = AlienList.Last();
@@ -82,6 +88,9 @@ namespace spaceinvaders01
             }
         }
 
+        /// <summary>
+        /// Each alien that is flagged as ActiveShooter as a small random chance to fire their laser each frame
+        /// </summary>
         public void RandomFireLaser()
         {
             foreach(Alien alien in AlienList)
