@@ -36,6 +36,7 @@ namespace spaceinvaders01
             _collisionManager = new CollisionManager();
             _explosionManager = new ExplosionManager();
             _gui = new GUI();
+            AudioManager.PlaySong();
 
         }
 

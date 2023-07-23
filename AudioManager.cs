@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,8 @@ namespace spaceinvaders01
         private static SoundEffect _alienLaserFX;
         private static SoundEffect _alienHitFX;
         private static SoundEffect _playerHitFX;
+        private static Song _song;
+
 
         public static void Init()
         {
@@ -21,6 +24,15 @@ namespace spaceinvaders01
             _alienLaserFX = SpaceInvaders.contentManager.Load<SoundEffect>("Audio/laser3");
             _alienHitFX = SpaceInvaders.contentManager.Load<SoundEffect>("Audio/explosion1");
             _playerHitFX = SpaceInvaders.contentManager.Load<SoundEffect>("Audio/explosion2");
+            _song = SpaceInvaders.contentManager.Load<Song>("Audio/song");
+
+            MediaPlayer.Volume = 1f;
+            MediaPlayer.IsRepeating = true;
+        }
+
+        public static void PlaySong()
+        {
+            MediaPlayer.Play(_song);
         }
         public static void playPlayerLaserFX()
         {
@@ -41,7 +53,6 @@ namespace spaceinvaders01
         {
             _playerHitFX.Play();
         }
-
 
     }
 }
