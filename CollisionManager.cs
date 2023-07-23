@@ -69,5 +69,55 @@ namespace spaceinvaders01
             }
         }
 
+        public void HandlePlayerLasersHitBlocks(ProjectileManager projectileManager, ExplosionManager explosionManager, DestructibleBlockManager destructibleBlockManager)
+        {
+            for (int l = 0; l < projectileManager.PlayerLaserList.Count; l++)
+            {
+                for (int b = 0; b < destructibleBlockManager.Blocks.Count; b++)
+                {
+                    if (projectileManager.PlayerLaserList[l].GetBounds().Intersects(destructibleBlockManager.Blocks[b].GetBounds()))
+                    {
+                        explosionManager.explosionList.Add(new Explosion("Sprites/explosion", destructibleBlockManager.Blocks[b].Position));
+                        projectileManager.PlayerLaserList.Remove(projectileManager.PlayerLaserList[l]);
+                        destructibleBlockManager.Blocks.Remove(destructibleBlockManager.Blocks[b]);
+                        break; // Stop a single laser from triggers more than 1 block destruction, which I think causes bound error
+                    }
+                }
+            }
+        }
+
+        public void HandleAlienLasersHitBlocks(ProjectileManager projectileManager, ExplosionManager explosionManager, DestructibleBlockManager destructibleBlockManager)
+        {
+            for (int l = 0; l < projectileManager.AlienLaserList.Count; l++)
+            {
+                for (int b = 0; b < destructibleBlockManager.Blocks.Count; b++)
+                {
+                    if (projectileManager.AlienLaserList[l].GetBounds().Intersects(destructibleBlockManager.Blocks[b].GetBounds()))
+                    {
+                        explosionManager.explosionList.Add(new Explosion("Sprites/explosion", destructibleBlockManager.Blocks[b].Position));
+                        projectileManager.AlienLaserList.Remove(projectileManager.AlienLaserList[l]);
+                        destructibleBlockManager.Blocks.Remove(destructibleBlockManager.Blocks[b]);                      
+                        break; // Stop a single laser from triggers more than 1 block destruction, which I think causes bound error
+                    }
+                }
+            }
+        }
+
+        public void HandleAlienHitBlocks(AlienManager alienManager, ExplosionManager explosionManager, DestructibleBlockManager destructibleBlockManager)
+        {
+            for (int l = 0; l < alienManager.AlienList.Count; l++)
+            {
+                for (int b = 0; b < destructibleBlockManager.Blocks.Count; b++)
+                {
+                    if (alienManager.AlienList[l].GetBounds().Intersects(destructibleBlockManager.Blocks[b].GetBounds()))
+                    {
+                        explosionManager.explosionList.Add(new Explosion("Sprites/explosion", destructibleBlockManager.Blocks[b].Position));
+                        destructibleBlockManager.Blocks.Remove(destructibleBlockManager.Blocks[b]);
+                        break; // Stop a single laser from triggers more than 1 block destruction, which I think causes bound error
+                    }
+                }
+            }
+        }
+
     }
 }

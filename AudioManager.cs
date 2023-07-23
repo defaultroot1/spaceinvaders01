@@ -46,7 +46,7 @@ namespace spaceinvaders01
 
         public static void playAlienHitFX()
         {
-            _alienHitFX.Play();
+            _alienHitFX.Play(0.6f, 1, 0);
         }
 
         public static void playPlayerHitFX()

@@ -21,7 +21,7 @@ namespace spaceinvaders01
             SpaceInvaders.spriteBatch.DrawString(_pixelFont, "HI-SCORE", new Vector2(GraphicsHelper.ScreenWidth - 280, 10), Color.White);
             SpaceInvaders.spriteBatch.DrawString(_pixelFont, highScore.ToString("D4"), new Vector2(GraphicsHelper.ScreenWidth - 200, 50), Color.White);
             SpaceInvaders.spriteBatch.DrawString(_pixelFont, playerLives.ToString(), new Vector2(10,
-                GraphicsHelper.ScreenHeight - 50), Color.White);
+                GraphicsHelper.ScreenHeight - 35), Color.White);
 
         }
 

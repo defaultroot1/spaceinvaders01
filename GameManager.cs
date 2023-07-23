@@ -22,11 +22,12 @@ namespace spaceinvaders01
         private AlienManager _alienManager;
         private CollisionManager _collisionManager;
         private ExplosionManager _explosionManager;
+        private DestructibleBlockManager _destructableBlockManager;
         private GUI _gui;
 
         public int PlayerLives { get; set; } = 3;
         public int PlayerScore { get; set; } = 0;
-        public int HighScore {  get; set; } = 0;
+        public int HighScore {  get; set; }
 
         private GameManager()
         {
@@ -36,7 +37,9 @@ namespace spaceinvaders01
             _collisionManager = new CollisionManager();
             _explosionManager = new ExplosionManager();
             _gui = new GUI();
+            _destructableBlockManager = new DestructibleBlockManager();
             AudioManager.PlaySong();
+            HighScore = HighScoreManager.LoadHighScore();
 
         }
 
@@ -62,17 +65,30 @@ namespace spaceinvaders01
                 _projectileManager.Update(gameTime);
                 _collisionManager.HandleLaserHitAlien(_projectileManager, _alienManager, this, _explosionManager);
                 _collisionManager.HandleLaserHitPlayer(_projectileManager, _playerShip, this, _explosionManager);
+                _collisionManager.HandlePlayerLasersHitBlocks(_projectileManager, _explosionManager, _destructableBlockManager);
+                _collisionManager.HandleAlienLasersHitBlocks(_projectileManager, _explosionManager, _destructableBlockManager);
+                _collisionManager.HandleAlienHitBlocks(_alienManager, _explosionManager, _destructableBlockManager);
 
                 if (PlayerLives < 1)
                 {
                     gameState = GameState.GameOver;
                     
                 }
+
+                foreach (Alien alien in _alienManager.AlienList)
+                {
+                    if(alien.Position.Y + alien.Height >= 850)
+                    {
+                        gameState = GameState.GameOver;
+                    }
+                }
+
                 UpdateHighScore();
             }
 
             if (gameState == GameState.GameOver)
             {
+                CheckForNewHighScore();
                 CheckForRestart();
             }
         }
@@ -81,7 +97,8 @@ namespace spaceinvaders01
         {
             _projectileManager.Draw();
             _alienManager.Draw();
-            _playerShip.Draw();
+            _playerShip.Draw();   
+            _destructableBlockManager.Draw();
             _explosionManager.Draw();
             _gui.Draw(PlayerScore, PlayerLives, HighScore);
 
@@ -126,6 +143,15 @@ namespace spaceinvaders01
             _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
             PlayerLives = 3;
             PlayerScore = 0;
+            _destructableBlockManager = new DestructibleBlockManager();
+        }
+
+        public void CheckForNewHighScore()
+        {
+            if(PlayerScore > HighScore)
+            {
+                HighScoreManager.SaveHighScore(PlayerScore);
+            }
         }
     }
 }

@@ -15,17 +15,18 @@ namespace spaceinvaders01
         public List<Alien> AlienList { get; set; }
         private ProjectileManager _projectileManager;
         private Random _random;
+        private float _startingY = 100;
 
         public AlienManager(ProjectileManager projectileManager)
         {
             _projectileManager = projectileManager;
             AlienList = new List<Alien>();
-            CreateSwarm();
+            CreateSwarm(_startingY);
         }
 
         public void Update(GameTime gameTime)
         {
-            if( AlienList.Count > 0 )
+            if (AlienList.Count > 0)
             {
                 foreach (Alien alien in AlienList)
                 {
@@ -35,8 +36,14 @@ namespace spaceinvaders01
 
                 HandleMovementAtBounds();
                 RandomFireLaser();
-
             }
+            else
+            {
+                AlienList.Clear();
+                _startingY += 60;
+                CreateSwarm(_startingY);
+            }
+
         }
 
         public void Draw()
@@ -50,7 +57,7 @@ namespace spaceinvaders01
         /// <summary>
         /// Initial creation of the alien swarm layout. Front row is ActiveShooter so can fire
         /// </summary>
-        public void CreateSwarm()
+        public void CreateSwarm(float startingY)
         {
             if(AlienList.Count > 0)
             {
@@ -59,11 +66,11 @@ namespace spaceinvaders01
 
             for(int i = 0; i < 11; i++)
             {
-                AlienList.Add(new Alien("Sprites/alien8atlas", new Vector2((i * 60) + 17, 100), 1, 2, 1.0f, _projectileManager, 30));
-                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, 160), 1, 2, 1.0f, _projectileManager, 20));
-                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, 220), 1, 2, 1.0f, _projectileManager, 20));
-                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, 280), 1, 2, 1.0f, _projectileManager, 10));
-                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, 340), 1, 2, 1.0f, _projectileManager, 10, true));
+                AlienList.Add(new Alien("Sprites/alien8atlas", new Vector2((i * 60) + 17, startingY), 1, 2, 1.0f, _projectileManager, 30));
+                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, startingY + 60), 1, 2, 1.0f, _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, startingY + 120), 1, 2, 1.0f, _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, startingY + 180), 1, 2, 1.0f, _projectileManager, 10));
+                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, startingY + 240), 1, 2, 1.0f, _projectileManager, 10, true));
 
             }
 
