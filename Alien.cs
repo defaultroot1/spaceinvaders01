@@ -12,11 +12,12 @@ namespace spaceinvaders01
     {
         private Vector2 _velocity;
         private float _speed = 1.0f;
-        private float _speedIncrase = 0.5f;
+        private float _speedIncrase = 0.2f;
         private ProjectileManager _projectileManager;
         public bool ActiveShooter { get; set; } = false;
         public int Points { get; set; }
-        public Alien(string spritePath, Vector2 position, ProjectileManager projectileManager, int points, bool activeShooter=false) : base(spritePath, position) 
+
+        public Alien(string spritePath, Vector2 position, int rows, int columns, float animationSpeed, ProjectileManager projectileManager, int points, bool activeShooter=false) : base(spritePath, position, rows, columns, animationSpeed) 
         {
             _velocity = new Vector2(1, 0);
             _projectileManager = projectileManager; 
@@ -45,13 +46,13 @@ namespace spaceinvaders01
 
         public void AdvanceOneRow()
         {
-            Position = new Vector2(Position.X, Position.Y + 60);
+            Position = new Vector2(Position.X, Position.Y + 30);
         }
 
         public void FireLaser()
         {
             _projectileManager.AlienLaserList.Add(new AlienLaser("Sprites/laser2",
-                new Vector2(Position.X + Texture.Width / 2, Position.Y + Texture.Width / 2)));
+                new Vector2(Position.X + Width / 2, Position.Y + Width / 2)));
         }
 
         public void MakeActiveShooter()
@@ -63,5 +64,6 @@ namespace spaceinvaders01
         {
             _speed += _speedIncrase;
         }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace spaceinvaders01
 {
@@ -26,15 +27,14 @@ namespace spaceinvaders01
         {
             if( AlienList.Count > 0 )
             {
-                HandleMovementAtBounds();
-
                 foreach (Alien alien in AlienList)
                 {
                     alien.UpdateMovementX(gameTime);
+                    alien.UpdateAnimation(gameTime);
                 }
 
+                HandleMovementAtBounds();
                 RandomFireLaser();
-
 
             }
         }
@@ -43,7 +43,7 @@ namespace spaceinvaders01
         {
             foreach(Alien alien in AlienList)
             {
-                alien.Draw();
+                alien.DrawAnimated();
             }
         }
 
@@ -59,11 +59,12 @@ namespace spaceinvaders01
 
             for(int i = 0; i < 11; i++)
             {
-                AlienList.Add(new Alien("Sprites/alien8", new Vector2((i * 60) + 17, 100), _projectileManager, 30));
-                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 160), _projectileManager, 20));
-                AlienList.Add(new Alien("Sprites/alien11", new Vector2((i * 60) + 11, 220), _projectileManager, 20));
-                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 280), _projectileManager, 10));
-                AlienList.Add(new Alien("Sprites/alien12", new Vector2((i * 60) + 10, 340), _projectileManager, 10, true));
+                AlienList.Add(new Alien("Sprites/alien8atlas", new Vector2((i * 60) + 17, 100), 1, 2, 1.0f, _projectileManager, 30));
+                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, 160), 1, 2, 1.0f, _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien11atlas", new Vector2((i * 60) + 11, 220), 1, 2, 1.0f, _projectileManager, 20));
+                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, 280), 1, 2, 1.0f, _projectileManager, 10));
+                AlienList.Add(new Alien("Sprites/alien12atlas", new Vector2((i * 60) + 10, 340), 1, 2, 1.0f, _projectileManager, 10, true));
+
             }
 
         }
@@ -77,7 +78,7 @@ namespace spaceinvaders01
             Alien lastAlien = AlienList.Last();
             Alien firstAlien = AlienList.First();
 
-            if (lastAlien.Position.X + lastAlien.Texture.Width > GraphicsHelper.ScreenWidth || 
+            if (lastAlien.Position.X + lastAlien.Width > GraphicsHelper.ScreenWidth || 
                 firstAlien.Position.X <= 0)
             {
                 foreach (Alien alien in AlienList)

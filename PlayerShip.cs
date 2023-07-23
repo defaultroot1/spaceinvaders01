@@ -45,13 +45,13 @@ namespace spaceinvaders01
                 Position = new Vector2(Position.X + _speed * delta, Position.Y);
             }
 
-            Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - Texture.Width), Position.Y);
+            Position = new Vector2(MathHelper.Clamp(Position.X, 0, GraphicsHelper.ScreenWidth - Width), Position.Y);
 
             // Fire laser. Checks if previous Update frame (_oldKeyboardState) had Space pressed to ensure only one laser per press
             if (keyboardState.IsKeyDown(Keys.Space) && !_oldKeyboardState.IsKeyDown(Keys.Space))
             {
                 _projectileManager.PlayerLaserList.Add(new PlayerLaser("Sprites/laser",
-                    new Vector2(Position.X + (Texture.Width / 2) - 1, Position.Y - Texture.Height / 2)));
+                    new Vector2(Position.X + (Width / 2) - 1, Position.Y - Height / 2)));
             }
 
             _oldKeyboardState = keyboardState;

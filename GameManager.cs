@@ -21,7 +21,9 @@ namespace spaceinvaders01
         private ProjectileManager _projectileManager;
         private AlienManager _alienManager;
         private CollisionManager _collisionManager;
+        private ExplosionManager _explosionManager;
         private GUI _gui;
+
         public int PlayerLives { get; set; } = 3;
         public int PlayerScore { get; set; } = 0;
         public int HighScore {  get; set; } = 0;
@@ -32,7 +34,9 @@ namespace spaceinvaders01
             _alienManager = new AlienManager(_projectileManager);
             _playerShip = new PlayerShip("Sprites/player", new Vector2(100, GraphicsHelper.ScreenHeight * 0.9f), _projectileManager);
             _collisionManager = new CollisionManager();
+            _explosionManager = new ExplosionManager();
             _gui = new GUI();
+
         }
 
         // Method to instantiante a single instance of GameManager (singleton)
@@ -55,8 +59,8 @@ namespace spaceinvaders01
                 _playerShip.Update(gameTime);
                 _alienManager.Update(gameTime);
                 _projectileManager.Update(gameTime);
-                _collisionManager.HandleLaserHitAlien(_projectileManager, _alienManager, this);
-                _collisionManager.HandleLaserHitPlayer(_projectileManager, _playerShip, this);
+                _collisionManager.HandleLaserHitAlien(_projectileManager, _alienManager, this, _explosionManager);
+                _collisionManager.HandleLaserHitPlayer(_projectileManager, _playerShip, this, _explosionManager);
 
                 if (PlayerLives < 1)
                 {
@@ -77,6 +81,7 @@ namespace spaceinvaders01
             _projectileManager.Draw();
             _alienManager.Draw();
             _playerShip.Draw();
+            _explosionManager.Draw();
             _gui.Draw(PlayerScore, PlayerLives, HighScore);
 
             if(gameState == GameState.GameOver)
