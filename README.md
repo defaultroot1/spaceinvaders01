@@ -1,6 +1,4 @@
-# spaceinvaders01
-
-<p>Basic rereation of the original Space Invaders in C#/MonoGame.</p>
+<p>I'm trying to learn C#/MonoGame by coding a short demo in a number of game genres/styles, ideally in increasing complexity. This is my attempt at Space Invaders.</p>
 <p>
 <img src=https://github.com/defaultroot1/spaceinvaders01/blob/master/spaceInvadersScreenshot.png>
 </p>
